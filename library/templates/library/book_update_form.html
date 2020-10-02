@@ -1,0 +1,19 @@
+{% extends 'library/base.html' %}
+
+{% block  content %}
+<form method="POST" enctype="multipart/form-data"> 
+    {% csrf_token %} 
+    {{ form.as_p }}      
+    <input type="submit" value="Update info"> 
+</form> 
+
+
+<button onclick="goBack()">Cancel</button>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+
+{% endblock %}

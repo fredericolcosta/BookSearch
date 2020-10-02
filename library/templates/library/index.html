@@ -1,16 +1,15 @@
+{% extends 'library/base.html' %}
 
-<html>
+{% block  content %}
 
-<head>
-<title>Library - Books</title>
-</head>
-
-<body>
 {% for book in page_obj %}
 <h1><a href="{% url 'library:book_detail' book.id%}">{{book.title}}</a></h1> by {{book.authors.all|join:', '}}
 
 {% endfor %}
 
+<form action="add_book">
+    <input type="submit" value="Add book" />
+</form>
 
 <div class="pagination">
     <span class="step-links">
@@ -29,6 +28,6 @@
         {% endif %}
     </span>
 </div>
-</body>
 
-</html>
+
+{% endblock  %}

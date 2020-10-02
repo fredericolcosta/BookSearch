@@ -1,12 +1,10 @@
+{% extends 'library/base.html' %}
+
 {% if error_message %}
 <p><strong>{{ error_message }}</strong></p>
 {% endif %}
 
-<html>
-<head>
-</head>
-
-<body>
+{% block  content %}
 
 <h1>{{ book.title }}</h1>by {{book.authors.all|join:', '}}
 
@@ -14,13 +12,10 @@
 <p>Published {{book.pub_date}}</p>
 <p>Category: {{book.category}}</p>
 
-<button onclick="goBack()">Go Back</button>
 
-<script>
-function goBack() {
-  window.history.back();
-}
-</script>
+<form action="{% url 'library:update_book' book.id%}">
+    <input type="submit" value="Update book" />
+</form>
 
-</body>
-</html>
+
+{% endblock %}
