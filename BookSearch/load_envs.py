@@ -8,4 +8,3 @@ HOST = os.getenv("HOST")
 PORT = os.getenv("PORT")
 NAME = os.getenv("NAME")
 
-print(USER, PASSWORD, HOST, PORT, NAME)
