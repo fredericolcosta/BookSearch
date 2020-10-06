@@ -1,11 +1,13 @@
 {% extends 'library/base.html' %}
 
 {% block  content %}
-<form method="POST" enctype="multipart/form-data"> 
-    {% csrf_token %} 
-    {{ form.as_p }}      
-    <input type="submit" value="Update info"> 
-</form> 
+
+
+<form method="post" action="">
+    {% csrf_token %}
+    <p>Are you sure you want to delete category "{{ category }}"?</p>
+    <input type="submit" value="Confirm">
+</form>
 
 <button onclick="goBack()">Cancel</button>
 

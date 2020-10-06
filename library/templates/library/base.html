@@ -40,11 +40,13 @@ body {
 <div class="topnav">
   <a class="active" href="{% url 'library:index' %}">Library</a>
   <a href="{% url 'library:add_book' %}">Add book</a>
+  <a href="{% url 'library:all_categories' %}">Categories</a>
   <a href="{% url 'library:logout' %}">Logout</a>
 </div>
 {% else %}
 <div class="topnav">
   <a class="active" href="{% url 'library:index' %}">Library</a>
+  <a href="{% url 'library:all_categories' %}">Categories</a>
   <a href="{% url 'library:login'%}">Log in</a>
   <a href="{% url 'library:register'%}">Create account</a>
 </div>

@@ -1,0 +1,33 @@
+{% extends 'library/base.html' %}
+
+{% block  content %}
+<ul>
+<style>
+form {
+    display: inline-block; 
+}
+</style>
+{% for category in page_categories %}   
+    <li><a href="{% url 'library:index' %}?cat={{category.id}}">{{category.name}}</a>
+        {% if user.is_authenticated %}
+            <span>
+                <form action="{% url 'library:update_category' category.id%}">
+                    <input type="submit" value="Edit" />
+                </form>
+                <form action="{% url 'library:delete_category' category.id%}">
+                    <input type="submit" value="Delete" />
+                </form>
+                
+            </span>
+        {% endif %}
+       
+    </li> 
+
+{% endfor %}
+</ul>
+
+<form action="{% url 'library:add_category'%}">
+    <input type="submit" value="Add category " />
+</form>
+
+{% endblock %}

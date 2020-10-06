@@ -20,7 +20,7 @@ class Book(models.Model):
     isbn_validator = RegexValidator(r'^[0-9]{13}|^[0-9]{10}$', 'ISBN has 10 or 13 digits.')
 
 
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=50)
     isbn = models.CharField(max_length=13, unique=True,validators=[isbn_validator])
     pub_date = models.DateField('date published')    
     authors = models.ManyToManyField(Author, blank=False)

@@ -15,21 +15,26 @@
 <input type="submit" value="Search" />
 </form>
 
-{% for book in page_obj %}
-<h1><a href="{% url 'library:book_detail' book.id%}">{{book.title}}</a></h1> by {{book.authors.all|join:', '}}
+{% if page_obj%}
+    {% for book in page_obj %}
+    <h1><a href="{% url 'library:book_detail' book.id%}">{{book.title}}</a></h1> by {{book.authors.all|join:', '}}
 
-{% if user.is_authenticated %}
-<form action="{% url 'library:delete_book' book.id%}">
-    <input type="submit" value="Delete book" />
-</form>
+    {% if user.is_authenticated %}
+        <form action="{% url 'library:delete_book' book.id%}">
+            <input type="submit" value="Delete book" />
+        </form>
+    {% endif %}
+    {% endfor %}
+
+{% else %}
+    <p>No books found.</p>
 {% endif %}
 
-{% endfor %}
 
 {% if user.is_authenticated %}
-<form action="add_book">
-    <input type="submit" value="Add book" />
-</form>
+    <form action="add_book">
+        <input type="submit" value="Add book" />
+    </form>
 {% endif %}
 
 
