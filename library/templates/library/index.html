@@ -2,17 +2,27 @@
 
 {% block  content %}
 
+
 <form method="GET" action=""> 
-<label for="cat">Category:</label>
-<select name="cat" id="cat">
-    <option value="all">All</option>
-{% for category in categories%}
-    <option value="{{category.id}}">{{category.name}}</option>
-{% endfor %}
-</select>
-<label for="author">Author:</label>
-<input type="text" name="author" id="author" default=""/>
-<input type="submit" value="Search" />
+    <label for="cat">Category:</label>
+    <!-- TODO: Solve problem selecting with "sel_category" form value-->
+    <select name="cat" id="cat">
+        <option value="all">All</option>
+        
+
+    {% for category in categories%}
+        {% if sel_category == category.id %}
+            
+            <option value="{{category.id}}" selected>{{category.name}}</option>
+        {% else %}
+            <option value="{{category.id}}">{{category.name}}</option>
+        {% endif %}
+        
+    {% endfor %}
+    </select>
+    <label for="author">Author:</label>
+    <input type="text" name="author" id="author" default=""/>
+    <input type="submit" value="Search" />
 </form>
 
 {% if page_obj%}
@@ -25,7 +35,7 @@
         </form>
     {% endif %}
     {% endfor %}
-
+    
 {% else %}
     <p>No books found.</p>
 {% endif %}
