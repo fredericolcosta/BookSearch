@@ -12,10 +12,10 @@
 <p>Published {{book.pub_date}}</p>
 <p>Category: {{book.category}}</p>
 
-
+{% if user.is_authenticated %}
 <form action="{% url 'library:update_book' book.id%}">
     <input type="submit" value="Update book" />
 </form>
-
+{% endif %}
 
 {% endblock %}
