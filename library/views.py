@@ -1,10 +1,11 @@
 from django.forms import models
 from django.http import request
+from django.http import response
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.views import generic
-from django.views.generic.edit import CreateView, UpdateView
-from django.urls import reverse
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -57,6 +58,12 @@ class AddBook(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('library:book_detail', kwargs={'pk': self.object.pk})
+
+class DeleteBook(LoginRequiredMixin, DeleteView): 
+  
+    login_url = 'library:login'
+    model = Book 
+    success_url= reverse_lazy('library:index')#providing a reversed URL as the url attribute of a generic class-based view
 
 class UpdateBook(LoginRequiredMixin, UpdateView):
 

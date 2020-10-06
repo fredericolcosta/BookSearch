@@ -1,0 +1,18 @@
+{% extends 'library/base.html' %}
+
+{% block  content %}
+<form method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to delete "{{ book }}" by {{book.authors.all|join:', '}}?</p>
+    <input type="submit" value="Confirm">
+</form>
+
+<button onclick="goBack()">Cancel</button>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+
+{% endblock %}
