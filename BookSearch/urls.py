@@ -21,4 +21,5 @@ from django.contrib.auth.views import LoginView, LogoutView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('library/', include('library.urls')),
+    path('rest_api/', include('rest_api.urls'))
 ]
