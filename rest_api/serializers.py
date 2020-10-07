@@ -22,9 +22,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class BookSerializer(serializers.ModelSerializer):
         
     def create(self, validated_data):
-        category =Category.objects.get_or_create(name=validated_data['category']['name'])[0]
-        authors = []
-        
+        category =Category.objects.get_or_create(name=validated_data['category']['name'])[0]        
 
         title = validated_data['title']
         isbn = validated_data['isbn']
