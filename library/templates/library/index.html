@@ -5,19 +5,10 @@
 
 <form method="GET" action=""> 
     <label for="cat">Category:</label>
-    <!-- TODO: Solve problem selecting with "sel_category" form value-->
     <select name="cat" id="cat">
         <option value="all">All</option>
-        
-
-    {% for category in categories%}
-        {% if sel_category == category.id %}
-            
-            <option value="{{category.id}}" selected>{{category.name}}</option>
-        {% else %}
-            <option value="{{category.id}}">{{category.name}}</option>
-        {% endif %}
-        
+    {% for category in categories%}      
+        <option value="{{category.id}}" {% if sel_category|add:"0" == category.id %}selected{% endif %}>{{category.name}}</option>   
     {% endfor %}
     </select>
     <label for="author">Author:</label>
