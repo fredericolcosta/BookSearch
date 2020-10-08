@@ -14,6 +14,22 @@ class BookList(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
+    def get_queryset(self):
+        """
+        Filters books by category or author name
+        """
+        book_list = Book.objects.all()
+        category = self.request.query_params.get('category', None)
+        author = self.request.query_params.get('author', None)
+        author = '' if author is None else author
+
+        if category != None and category != 'all':
+            book_list = Book.objects.all().filter(category_id=category, authors__name__icontains=author).order_by('-title').distinct()
+        else:
+            book_list = Book.objects.all().filter(authors__name__icontains=author).order_by('-title').distinct()
+
+        return book_list
+
 class BookDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer

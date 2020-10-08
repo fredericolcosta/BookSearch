@@ -18,11 +18,9 @@ def index(request):
     
     title = request.GET.get('title') 
     title = '' if title is None else title
-    print(title)
 
     author = request.GET.get('author')
     author = '' if author is None else author
-    print(author)
 
     category = request.GET.get('cat')
 
