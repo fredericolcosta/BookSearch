@@ -28,6 +28,7 @@ class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
         fields = ["id", "name"]
+        #to allow adding books with already existing author
         extra_kwargs = {
             'name': {'validators': []},
         }
@@ -45,6 +46,7 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ["id", "name"]
+        #to allow adding books with already existing category
         extra_kwargs = {
             'name': {'validators': []},
         }

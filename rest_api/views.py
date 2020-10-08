@@ -12,10 +12,11 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.views import APIView
 
+from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope, OAuth2Authentication
 
 class BookList(generics.ListCreateAPIView):
     # Define authentication methods
-    authentication_classes = [TokenAuthentication]
+    authentication_classes = [TokenAuthentication, OAuth2Authentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     queryset = Book.objects.all()
@@ -42,7 +43,7 @@ class BookList(generics.ListCreateAPIView):
 
 class BookDetail(generics.RetrieveUpdateDestroyAPIView):
     # Define authentication methods
-    authentication_classes = [TokenAuthentication]
+    authentication_classes = [TokenAuthentication, OAuth2Authentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     queryset = Book.objects.all()
@@ -50,7 +51,6 @@ class BookDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class CategoryList(generics.ListCreateAPIView):
-    # Define authentication methods
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
 
@@ -59,13 +59,14 @@ class CategoryList(generics.ListCreateAPIView):
 
 
 class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    # Define authentication methods
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def destroy(self, request, *args, **kwargs):
         try:
-            return super().destroy(self, request, *args, **kwargs)
+            super().destroy(self, request, *args, **kwargs)
+            return Response("Deleted category", status=status.HTTP_400_BAD_REQUEST)
+
         except ProtectedError as e:
             return Response("Cannot delete category with books", status=status.HTTP_400_BAD_REQUEST)
 
@@ -74,7 +75,6 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class AuthorList(generics.ListCreateAPIView):
-    #Define authentication methods
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
 

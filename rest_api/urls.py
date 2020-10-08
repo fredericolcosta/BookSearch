@@ -13,6 +13,7 @@ urlpatterns = [
     path('authors/', views.AuthorList.as_view()),
     path('api-token/', auth_views.obtain_auth_token),
     path('register/', views.UserCreate.as_view()),
+    path('oauth/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
