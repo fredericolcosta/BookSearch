@@ -4,7 +4,7 @@ from library.models import Book, Author, Category
 from django.db import IntegrityError
 from django.contrib.auth.models import User
 
-
+print("hello")
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
