@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'oauth2_provider',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -134,6 +135,11 @@ STATIC_URL = '/static/'
 
 #LOGIN_URL = "library:login"
 LOGIN_REDIRECT_URL = 'library:index'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
 
 OAUTH2_PROVIDER = {
     # this is the list of available scopes

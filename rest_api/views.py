@@ -14,6 +14,8 @@ from rest_framework.views import APIView
 
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope, OAuth2Authentication
 
+from django_filters.rest_framework import DjangoFilterBackend
+
 class BookList(generics.ListCreateAPIView):
     # Define authentication methods
     authentication_classes = [TokenAuthentication, OAuth2Authentication]
@@ -22,23 +24,26 @@ class BookList(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
-    def get_queryset(self):
-        """
-        Filters books by category or author name
-        """
-        book_list = Book.objects.all()
-        category = self.request.query_params.get('category', None)
-        author = self.request.query_params.get('author', None)
-        author = '' if author is None else author
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['category','title', 'authors','isbn']
 
-        if category != None and category != 'all':
-            book_list = Book.objects.all().filter(category_id=category,
-                                                  authors__name__icontains=author).order_by('-title').distinct()
-        else:
-            book_list = Book.objects.all().filter(
-                authors__name__icontains=author).order_by('-title').distinct()
+    # def get_queryset(self):
+    #     """
+    #     Filters books by category or author name
+    #     """
+    #     book_list = Book.objects.all()
+    #     category = self.request.query_params.get('category', None)
+    #     author = self.request.query_params.get('author', None)
+    #     author = '' if author is None else author
 
-        return book_list
+    #     if category != None and category != 'all':
+    #         book_list = Book.objects.all().filter(category_id=category,
+    #                                               authors__name__icontains=author).order_by('-title').distinct()
+    #     else:
+    #         book_list = Book.objects.all().filter(
+    #             authors__name__icontains=author).order_by('-title').distinct()
+
+    #     return book_list
 
 
 class BookDetail(generics.RetrieveUpdateDestroyAPIView):
